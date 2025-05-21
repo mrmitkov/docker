@@ -2,13 +2,13 @@ version: "3.8"
 
 services:
   mongodb:
-    image: mongo:latest
+    image: mongo:8.0
     container_name: mongodb
     hostname: mongodb
     volumes:
       #- ./mongodb/initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-      - mongodb-data:/data/db
-      - mongodb-log:/var/log/mongodb/
+      - /data/docker/mongodb/mongodb-data:/data/db
+      - /data/docker/mongodb/mongodb-log:/var/log/mongodb/
     env_file:
       - .env
     environment:
@@ -38,14 +38,6 @@ services:
       - mongodb_network
     depends_on:
       - mongodb
-
-volumes:
-  mongodb-data:
-    driver: local
-    name: mongo-data
-  mongodb-log:
-    driver: local
-    name: mongo-log
 
 networks:
   mongodb_network:
